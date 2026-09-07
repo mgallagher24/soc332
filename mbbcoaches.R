@@ -19,4 +19,5 @@ mbbcoachnames <- clean_names(mbbcoachnames)
 
 mbbcoachnames <- mbbcoachnames |>
   filter(var_1 != "Coach") |>
-  filter(var_1 != "")
+  filter(var_1 != "") |>
+  rename("coach" = "var_1")

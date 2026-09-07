@@ -21,4 +21,5 @@ nbacoachnames <- clean_names(nbacoachnames)
 
 nbacoachnames <- nbacoachnames |>
   filter(var_2 != "Coach") |>
-  filter(var_2 != "")
+  filter(var_2 != "") |>
+  rename("coach" = "var_2")

@@ -13,11 +13,12 @@ wbbcoachnames<- wbbcoachespage |>
   html_table()
 
 wbbcoachnames <- as.data.frame(wbbcoachnames) |>
-  select("Var.1")
+  select("Var.1", "Var.2")
 
 wbbcoachnames <- clean_names(wbbcoachnames)
 
 wbbcoachnames <- wbbcoachnames |>
   filter(var_1 != "Coach") |>
   filter(var_1 != "") |>
-  rename("coach" = "var_1")
+  rename("coach" = "var_1") |>
+  rename("school" = "var_2")

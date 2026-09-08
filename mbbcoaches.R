@@ -13,11 +13,13 @@ mbbcoachnames<- mbbcoachespage |>
   html_table()
 
 mbbcoachnames <- as.data.frame(mbbcoachnames) |>
-  select("Var.1")
+  select("Var.1", "Var.2")
 
 mbbcoachnames <- clean_names(mbbcoachnames)
 
 mbbcoachnames <- mbbcoachnames |>
   filter(var_1 != "Coach") |>
   filter(var_1 != "") |>
-  rename("coach" = "var_1")
+  rename("coach" = "var_1") |>
+  rename("school" = "var_2")
+

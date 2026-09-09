@@ -250,3 +250,13 @@ nbaasstscoach_names <- nbaasstscoach_names |>
          nbaassts_names != "Micah Nori",
          nbaassts_names != "Tiago Splitter",
          nbaassts_names != "Sean Sweeney")
+
+# add gender variable ----
+
+nbaasstscoach_names <- nbaasstscoach_names |>
+  mutate(
+    gender = if_else(nbaassts_names == "Jenny Boucek" | nbaassts_names == "Lindsey Harding",
+                     "F", "M"))
+    
+nbacoachnames <- nbacoachnames |>
+  mutate(gender = "M")

@@ -23,3 +23,7 @@ mbbcoachnames <- mbbcoachnames |>
   rename("coach" = "var_1") |>
   rename("school" = "var_2")
 
+mbbcoachnames <- mbbcoachnames |>
+  mutate(
+    gender = "M"
+  )

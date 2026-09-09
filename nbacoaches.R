@@ -251,12 +251,24 @@ nbaasstscoach_names <- nbaasstscoach_names |>
          nbaassts_names != "Tiago Splitter",
          nbaassts_names != "Sean Sweeney")
 
+nbaasstscoach_names <- nbaasstscoach_names |>
+  rename(coach = nbaassts_names)
 # add gender variable ----
 
 nbaasstscoach_names <- nbaasstscoach_names |>
   mutate(
-    gender = if_else(nbaassts_names == "Jenny Boucek" | nbaassts_names == "Lindsey Harding",
+    gender = if_else(coach == "Jenny Boucek" | coach == "Lindsey Harding",
                      "F", "M"))
     
 nbacoachnames <- nbacoachnames |>
   mutate(gender = "M")
+nbacoaches <- nbacoachnames |>
+  bind_rows(nbaasstscoach_names)
+
+# apply head coach title ----
+
+nbacoaches <- nbacoaches |>
+  mutate(
+    hc = if_else(coach %in% nbacoachnames$coach,
+                 "Yes", "No")
+  )

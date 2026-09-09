@@ -160,7 +160,7 @@ was_asstsnames <- tibble(
   )
 
 # add to coaches ----
-wnbacoachnames <- wnbacoachnames |>
+wnbacoaches <- wnbacoachnames |>
   bind_rows(was_asstsnames,tor_asstsnames, sea_asstsnames, por_asstsnames,
             pho_asstsnames, nyl_asstsnames, min_asstsnames, lva_asstsnames,
             las_asstsnames, ind_asstsnames, gsv_asstsnames, dal_asstsnames,
@@ -168,14 +168,8 @@ wnbacoachnames <- wnbacoachnames |>
 
 # signify head coaches ----
 
-wnbacoachnames <- wnbacoachnames |>
+wnbacoaches <- wnbacoaches |>
   mutate(
-    hc = if_else(coach %in% c("Karl Smesko", "Tyler Marsh", "Rachid Meziane",
-                              "Jose Fernandez", "Chris DeMarco",
-                              "Nate Tibbetts", "Alex Sarama",
-                              "Sydney Johnson", "Natalie Nakase",
-                              "Stephanie White", "Lynne Roberts",
-                              "Becky Hammon", "Cheryl Reeve", "Sofia Raman",
-                              "Sandy Brondello", "Sonia Raman"),
+    hc = if_else(coach %in% wnbacoachnames$coach,
                  "Yes", "No")
   )

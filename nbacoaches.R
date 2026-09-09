@@ -74,10 +74,13 @@ nbacoachnames <- nbacoachnames |>
 bow("https://nbacoaches.com/nba-assistant-coaches/")
 nba_assts <- read_html("https://nbacoaches.com/nba-assistant-coaches/")
 
+
 nbaassts_names <- nba_assts |>
   html_elements("#content a") |>
   html_text()
 nbaasstscoach_names <- as.data.frame(nbaassts_names)
+nbaasstscoach_names <- nbaasstscoach_names |>
+  mutate(nbaassts_names = str_squish(nbaassts_names))
 nbaasstscoach_names <- nbaasstscoach_names |>
   mutate(
     team = case_when(
@@ -148,5 +151,102 @@ nbaasstscoach_names <- nbaasstscoach_names |>
           "Darvin Ham", "Jack Herum", "Dave Joerger","Rex Kalamian",
           "Jason Love", "Spencer Rivers")
       ~ "Milwaukee Bucks",
+      nbaassts_names %in%
+        c("Bryan Bailey", "Mike Brey", "Steve Klei", "Antonio Lang",
+          "Sanjay Lumpkin", "Ronald Nored", "Reggis Onwukamuche",
+          "Ryan Schmidt", "Ashton Smith", "Ekpe Udoh", "Jeff Watkinson")
+      ~ "Atlanta Hawks",
+      nbaassts_names %in%
+        c("D.J. Bakker", "Jermaine Bucknor", "Ryan Frazier", "Matt Hill",
+          "Josh Longstaff", "Blaine Mueller", "Kyle Neptune",
+          "Zach Peterson","Lamar Skeeter")
+      ~ "Charlotte Hornets",
+      nbaassts_names %in%
+        c("Malik Allen", "Caron Butler", "Octavio De La Grana",
+          "Wayne Ellington", "Eric Glass", "Chris Quinn")
+      ~ "Miami Heat",
+      nbaassts_names %in%
+        c("Ameer Bahhur", "Jeremiah Boswell", "Bret Brielmaier",
+          "Lionel Chalmers", "Randy Gregory", "Dylan Murphy", "Dale Osbourne",
+          "Joe Prunty", "God Shammgod")
+      ~ "Orlando Magic",
+      nbaassts_names %in%
+        c("Alexis Ajinca", "Adam Caporn", "James Fraschilla",
+          "J.J. Outlaw", "T.J. Sorrentine", "Cody Toppert", "David Vanterpool")
+      ~ "Washington Wizards",
+      nbaassts_names %in%
+        c("Ron Adams", "Seth Cooper", "Bruce Fraser",
+          "Nicholas Kerr","Khalid Robinson", "Jacob Rubin",
+          "Jerry Stackhouse","Terry Stotts", "Anthony Vereen", "Kris Weems")
+      ~ "Golden State Warriors",
+      nbaassts_names %in%
+        c("Jeremy Castleberry", "Tim Dather", "Larry Drew",
+          "Conor Dunleavy", "Shaun Fein", "Chris Holguin", "Dahntay Jones",
+          "Jay Larranaga", "Brian Shaw", "Jeff Van Gundy", "Todd Wright")
+      ~ "Los Angeles Clippers",
+      nbaassts_names %in%
+        c("Ty Abbott", "Bob Beyer", "Scott Brooks", "Lindsey Harding",
+          "Beau Levesque", "Nate McMillan", "Greg St. Jean")
+      ~ "Los Angeles Lakers",
+      nbaassts_names %in%
+        c("Chaisson Allen",
+          "DeMarre Carroll",
+          "Sean Dwyer",
+          "John Little",
+          "Jesse Mermuys",
+          "Mike Muscala",
+          "Brian Randle")
+      ~ "Phoenix Suns",
+      nbaassts_names %in%
+        c("Leandro Barbosa", "Chris Darnell", "Bobby Jackson",
+          "Mike Miller", "Dipesh Mistry", "Mike Woodson")
+      ~ "Sacramento Kings",
+      nbaassts_names %in%
+        c("Josh Broghamer",
+          "Phil Handy",
+          "Eric Hughes",
+          "Popeye Jones",
+          "Mike Penberthy",
+          "Jordan Sears",
+          "Jay Triano",
+          "Keith Veney",
+          "Frank Vogel")
+      ~ "Dallas Mavericks",
+      nbaassts_names %in%
+        c("Joseph Blair", "Josh Bostic", "Will Dunn", "Cam Hodges",
+          "Royal Ivey", "Garrett Jackson", "Robbie Lemons","Ben Sullivan")
+      ~ "Houston Rockets",
+      nbaassts_names %in%
+        c("Darnell Lazare", "Jason March", "Ryan Saunders", "Erik Schmidt")
+      ~ "Memphis Grizzlies",
+      nbaassts_names %in%
+        c("James Borrego",
+          "Corey Brewer",
+          "Jarron Collins",
+          "Brandon Demas",
+          "Casey Hill",
+          "Mike Hopkins",
+          "Jodie Meeks",
+          "Aaron Miles",
+          "Greg Monroe")
+      ~ "New Orleans Pelicans",
+      nbaassts_names %in%
+        c("Jimmy Baron",
+          "Joshua Brannon",
+          "Brett Brown",
+          "Scott King",
+          "Tim Martin",
+          "Matt Nielsen",
+          "Mike Noyes",
+          "Corliss Williamson")
+      ~ "San Antonio Spurs"
     )
   )
+
+# remove clutter and head coaches ----
+
+nbaasstscoach_names <- nbaasstscoach_names |>
+  filter(nbaassts_names != "NBA Coaches Association",
+         nbaassts_names != "Micah Nori",
+         nbaassts_names != "Tiago Splitter",
+         nbaassts_names != "Sean Sweeney")

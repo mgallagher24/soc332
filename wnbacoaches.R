@@ -39,7 +39,7 @@ wnbacoachnames <- wnbacoachnames |>
 
 # assistant coaches ----
 
-wnba_asstsnames <- tibble(
+atl_asstsnames <- tibble(
   coach = c("LaToya Sanders", "Brandi Poole", "Chelsea Lyles",
   "Camryn Brown"),
   team = "ATL",
@@ -157,4 +157,25 @@ was_asstsnames <- tibble(
   mutate(
     gender = if_else(coach == "Emre Vatansever",
                      "M", "F")
+  )
+
+# add to coaches ----
+wnbacoachnames <- wnbacoachnames |>
+  bind_rows(was_asstsnames,tor_asstsnames, sea_asstsnames, por_asstsnames,
+            pho_asstsnames, nyl_asstsnames, min_asstsnames, lva_asstsnames,
+            las_asstsnames, ind_asstsnames, gsv_asstsnames, dal_asstsnames,
+            con_asstsnames, chi_asstsnames, atl_asstsnames)
+
+# signify head coaches ----
+
+wnbacoachnames <- wnbacoachnames |>
+  mutate(
+    hc = if_else(coach %in% c("Karl Smesko", "Tyler Marsh", "Rachid Meziane",
+                              "Jose Fernandez", "Chris DeMarco",
+                              "Nate Tibbetts", "Alex Sarama",
+                              "Sydney Johnson", "Natalie Nakase",
+                              "Stephanie White", "Lynne Roberts",
+                              "Becky Hammon", "Cheryl Reeve", "Sofia Raman",
+                              "Sandy Brondello", "Sonia Raman"),
+                 "Yes", "No")
   )
